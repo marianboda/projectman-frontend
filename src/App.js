@@ -1,18 +1,40 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
+  constructor(props) {
+    super(props)
+    this.state = { projects: [] }
+  }
+  componentDidMount() {
+    // const data = 
+    fetch(
+      'http://localhost:3000/graphql',
+      {
+        method: 'POST',
+        body: '{"query": "{ projects { id, name } }"}',
+        headers: new Headers({ 'Content-Type': 'application/json' }),
+      },
+    ).then(i => i.json())
+    .then(i => this.setState({ projects: i.data.projects }))
+  }
   render() {
     return (
       <div className="App">
         <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+          <h2>project-man 2017</h2>
         </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+          {
+            (this.state.projects.length > 0)
+              ? (<div>
+                  <h3>Projects:</h3>
+                  <ul>
+                    {this.state.projects.map(i => <li>{i.name}</li>)}
+                  </ul>
+                </div>)
+              : (<p>not yet loaded ...</p>)
+
+          }
       </div>
     );
   }
