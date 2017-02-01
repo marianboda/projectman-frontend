@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import './App.css'
-import { tasksLoaded } from './actions'
+import { tasksLoaded, setTask } from './actions'
 
 const mapStateToProps = (state) => {
   console.log('logging props', state)
@@ -12,6 +12,13 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     tasksLoadedHandler: (data) => dispatch(tasksLoaded(data)),
+    onTaskNameFieldChange: (e) => {
+      if (e.key === 'Enter') {
+        const name = e.currentTarget.value
+        dispatch(setTask({ name }))
+      }
+      console.log(e.key)
+    },
   }
 }
 
@@ -36,13 +43,14 @@ class App extends Component {
     .then(i => this.props.tasksLoadedHandler({ tasks: i.data.tasks }))
   }
   render() {
-    const { state } = this.props
+    const { state, onTaskNameFieldChange } = this.props
     console.log('rerender', state)
     return (
       <div className="App">
         <div className="App-header">
           <h2>project-man 2017</h2>
         </div>
+        <input type="text" onKeyDown={onTaskNameFieldChange} />
         {
           (state.tasks.length > 0)
             ? (<div>
