@@ -1,7 +1,6 @@
 const apiConfig = {
   method: 'POST',
   headers: new Headers({ 'Content-Type': 'application/json' }),
-  body: '{"query": "mutation { setTask(task: {name: \\"aaa-aaa\\"}) {id} }"}',
 }
 
 export const query = (q) => {
