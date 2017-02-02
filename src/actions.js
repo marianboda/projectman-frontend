@@ -16,5 +16,6 @@ export const setTask = (data) => (dispatch) => {
     payload: data,
   })
   gql.setTask(data)
-    .then((res) => console.log('res received', res))
+    .then(res => res.json())
+    .then((res) => dispatch(taskUpdate(res.data.setTask)))
 }

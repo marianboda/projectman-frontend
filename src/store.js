@@ -11,6 +11,8 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case 'TASKS_LOADED':
       return { ...state, tasks: action.payload.tasks }
+    case 'TASK_UPDATE':
+      return { ...state, tasks: [...state.tasks, action.payload] }
     default:
       return state
   }
