@@ -19,6 +19,14 @@ const mapDispatchToProps = (dispatch) => {
       }
       console.log(e.key)
     },
+    onTaskCheck: (task) => {
+      const data = {
+        id: task.id,
+        state_id: 5,
+      }
+      dispatch(setTask(data))
+      // console.log()
+    },
   }
 }
 
@@ -36,14 +44,14 @@ class App extends Component {
       'http://localhost:3000/graphql',
       {
         method: 'POST',
-        body: '{"query": "{ tasks { id, name } }"}',
+        body: '{"query": "{ tasks { id, name, state_id } }"}',
         headers: new Headers({ 'Content-Type': 'application/json' }),
       },
     ).then(i => i.json())
     .then(i => this.props.tasksLoadedHandler({ tasks: i.data.tasks }))
   }
   render() {
-    const { state, onTaskNameFieldChange } = this.props
+    const { state, onTaskNameFieldChange, onTaskCheck } = this.props
     console.log('rerender', state)
     return (
       <div className="App">
@@ -56,7 +64,15 @@ class App extends Component {
             ? (<div>
               <h3>Tasks:</h3>
               <ul>
-                {state.tasks.map(i => <li>{i.name}</li>)}
+                {state.tasks.map(i => (<li>
+                  <input
+                    type="checkbox"
+                    checked={i.state_id == 5}
+                    onChange={((j) => e => onTaskCheck(j))(i)}
+                  />
+                  {i.name}
+                  | {i.state_id}
+                </li>))}
               </ul>
             </div>)
             : (<p>not yet loaded ...</p>)

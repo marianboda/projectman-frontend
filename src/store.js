@@ -12,6 +12,12 @@ const reducer = (state = initialState, action) => {
     case 'TASKS_LOADED':
       return { ...state, tasks: action.payload.tasks }
     case 'TASK_UPDATE':
+      if (!action.payload)
+        return state
+      const foundIndex = state.tasks.findIndex(i => i.id === action.payload.id)
+      if (foundIndex > -1) {
+        return { ...state, tasks: Object.assign([], state.tasks, { [foundIndex]: action.payload }) }
+      }
       return { ...state, tasks: [...state.tasks, action.payload] }
     default:
       return state

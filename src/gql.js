@@ -14,7 +14,7 @@ const quoteVal = (val) => {
 }
 
 export const setTask = (rec) => {
-  const select = ['id', 'name'].join(',')
+  const select = ['id', 'name', 'state_id'].join(', ')
   const vals = Object.keys(rec).map(i => `${i}: ${quoteVal(rec[i])}`).join(', ')
   const q = `mutation { setTask(task: {${vals}}) { ${select} } }`
   return query(q)
