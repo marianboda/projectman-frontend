@@ -1,12 +1,18 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { graphql, compose } from 'react-apollo'
+import gql from 'graphql-tag'
 
 import './App.css'
 import { tasksLoaded, setTask } from './actions'
 
+const taskQuery = gql`query taskquery { tasks { id, name, state_id, project_id, priority } }`
+
 const mapStateToProps = (state) => {
   console.log('logging props', state)
-  return { state }
+  return {
+    state: state.data,
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -40,18 +46,19 @@ class App extends Component {
   }
   componentDidMount() {
     // const data =
-    fetch(
-      'http://localhost:3000/graphql',
-      {
-        method: 'POST',
-        body: '{"query": "{ tasks { id, name, state_id } }"}',
-        headers: new Headers({ 'Content-Type': 'application/json' }),
-      },
-    ).then(i => i.json())
-    .then(i => this.props.tasksLoadedHandler({ tasks: i.data.tasks }))
+    // fetch(
+    //   'http://localhost:3000/graphql',
+    //   {
+    //     method: 'POST',
+    //     body: '{"query": "{ tasks { id, name, state_id, project_id, priority } }"}',
+    //     headers: new Headers({ 'Content-Type': 'application/json' }),
+    //   },
+    // ).then(i => i.json())
+    // .then(i => this.props.tasksLoadedHandler({ tasks: i.data.tasks }))
   }
   render() {
-    const { state, onTaskNameFieldChange, onTaskCheck } = this.props
+    const { state, onTaskNameFieldChange, onTaskCheck, data } = this.props
+    console.log('appProps', this.props)
     console.log('rerender', state)
     return (
       <div className="App">
@@ -60,27 +67,30 @@ class App extends Component {
         </div>
         <input type="text" onKeyDown={onTaskNameFieldChange} />
         {
-          (state.tasks.length > 0)
+          (data && data.tasks && data.tasks.length > 0)
             ? (<div>
               <h3>Tasks:</h3>
               <ul>
-                {state.tasks.map(i => (<li>
+                {data.tasks.map(i => (<li>
                   <input
                     type="checkbox"
-                    checked={i.state_id == 5}
-                    onChange={((j) => e => onTaskCheck(j))(i)}
+                    checked={i.state_id === 5}
+                    onChange={((j) => () => onTaskCheck(j))(i)}
                   />
                   {i.name}
-                  | {i.state_id}
+                  , state: {i.state_id}
+                  , prio: {i.priority}
                 </li>))}
               </ul>
             </div>)
             : (<p>not yet loaded ...</p>)
-
         }
       </div>
     )
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default compose(
+  graphql(taskQuery),
+  connect(mapStateToProps, mapDispatchToProps),
+)(App)
