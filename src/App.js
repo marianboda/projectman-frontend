@@ -60,6 +60,10 @@ class App extends Component {
     const { state, onTaskNameFieldChange, onTaskCheck, data } = this.props
     console.log('appProps', this.props)
     console.log('rerender', state)
+    const self = this
+
+console.log(self.setTask)
+
     return (
       <div className="App">
         <div className="App-header">
@@ -75,7 +79,7 @@ class App extends Component {
                   <input
                     type="checkbox"
                     checked={i.state_id === 5}
-                    onChange={((j) => () => onTaskCheck(j))(i)}
+                    onChange={((j) => () => this.props.onTaskCheck(j))(i)}
                   />
                   {i.name}
                   , state: {i.state_id}
@@ -89,8 +93,13 @@ class App extends Component {
     )
   }
 }
+// const select = ['id', 'name', 'state_id'].join(', ')
+// const vals = Object.keys(rec).map(i => `${i}: ${quoteVal(rec[i])}`).join(', ')
+
+// const setTaskMutation = gql`mutation { setTask(task: {id: 1, name: "${new Date().getSeconds()}"}) { id, name, state_id } }`
 
 export default compose(
   graphql(taskQuery),
+  // graphql(setTaskMutation, {name: 'setTask'}),
   connect(mapStateToProps, mapDispatchToProps),
 )(App)
