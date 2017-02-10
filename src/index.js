@@ -2,15 +2,18 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 // import { Provider } from 'react-redux'
 import { ApolloProvider } from 'react-apollo'
-import client from './ApolloClient'
+import { provideRouter } from 'redux-little-router'
 
+import client from './ApolloClient'
 import App from './App'
 import store from './store'
 import './index.css'
 
+const AppWithRouter = provideRouter({ store })(App)
+
 ReactDOM.render(
   <ApolloProvider store={store} client={client}>
-    <App />
+    <AppWithRouter />
   </ApolloProvider>,
   document.getElementById('root'),
 )
