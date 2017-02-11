@@ -5,7 +5,7 @@ import { ApolloProvider } from 'react-apollo'
 import { provideRouter } from 'redux-little-router'
 
 import client from './ApolloClient'
-import App from './App'
+import App from './components/App'
 import store from './store'
 import './index.css'
 

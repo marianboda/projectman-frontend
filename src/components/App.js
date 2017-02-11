@@ -5,7 +5,7 @@ import gql from 'graphql-tag'
 import { AbsoluteFragment as Fragment, Link } from 'redux-little-router'
 
 import './App.css'
-import { tasksLoaded, setTask } from './actions'
+import { tasksLoaded, setTask } from '../actions'
 
 const taskQuery = gql`query taskquery { tasks { id, name, state_id, project_id, priority } }`
 
