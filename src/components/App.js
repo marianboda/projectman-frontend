@@ -5,13 +5,19 @@ import gql from 'graphql-tag'
 import { AbsoluteFragment as Fragment, Link } from 'redux-little-router'
 
 import './App.css'
-import { tasksLoaded, setTask } from '../actions'
+import { tasksLoaded, setTask, editTask } from '../actions'
+import TaskEditor from './TaskEditor'
 
-const taskQuery = gql`query taskquery { tasks { id, name, state_id, project_id, priority } }`
+const dataQuery = gql`query taskquery {
+  tasks { id, name, state_id, project_id, priority }
+  projects { id, name }
+  taskStates { id, name }
+}`
 
 const mapStateToProps = (state) => {
+  console.log('state', state)
   return {
-    state: state.data,
+    pageState: state.data.pageState,
   }
 }
 
@@ -32,19 +38,36 @@ const mapDispatchToProps = (dispatch) => {
       }
       dispatch(setTask(data))
     },
+    onProjectSelect: (e) => {
+      console.log('projectSelected', e.currentTarget.value)
+    },
+    onStateSelect: (e) => {
+      console.log('stateSelected', e.currentTarget.value)
+    },
+    onSave: (e) => {
+      console.log('saving', e.currentTarget.value)
+    },
+    editorChangeHandler: (e) => {
+      console.log('editorch', e)
+      dispatch(editTask(e))
+    },
   }
 }
 
 class App extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      projects: [],
-      tasks: [],
-    }
-  }
   render() {
-    const { state, onTaskNameFieldChange, onTaskCheck, data } = this.props
+    const {
+      // state,
+      onTaskNameFieldChange,
+      onProjectSelect,
+      onTaskCheck,
+      onStateSelect,
+      onSave,
+      editorChangeHandler,
+      data,
+      pageState,
+    } = this.props
+    console.log('props', this.props)
     return (
       <div className="App">
         <div className="App-header">
@@ -54,8 +77,14 @@ class App extends Component {
           <Link href="/tasks">Tasks</Link>&nbsp;
           <Link href="/projects">Projects</Link>
         </div>
-        <Fragment forRoute='/tasks'>
-          <input type="text" onKeyDown={onTaskNameFieldChange} />
+        <hr />
+        <Fragment forRoute="/tasks">
+          <TaskEditor
+            data={pageState.tasks.currentTask}
+            taskStates={data.taskStates}
+            projects={data.projects}
+            onChange={editorChangeHandler}
+          />
           {
             (data && data.tasks && data.tasks.length > 0)
               ? (<div>
@@ -65,7 +94,7 @@ class App extends Component {
                     <input
                       type="checkbox"
                       checked={i.state_id === 5}
-                      onChange={((j) => () => this.props.onTaskCheck(j))(i)}
+                      onChange={((j) => () => onTaskCheck(j))(i)}
                     />
                     {i.name}
                     , state: {i.state_id}
@@ -82,6 +111,6 @@ class App extends Component {
 }
 
 export default compose(
-  graphql(taskQuery),
+  graphql(dataQuery),
   connect(mapStateToProps, mapDispatchToProps),
 )(App)

@@ -19,3 +19,11 @@ export const setTask = (data) => (dispatch) => {
     .then(res => res.json())
     .then((res) => dispatch(taskUpdate(res.data.setTask)))
 }
+
+export const editTask = (data) => {
+  console.log('editTask', data)
+  return {
+    type: 'TASK_EDIT',
+    payload: data,
+  }
+}
