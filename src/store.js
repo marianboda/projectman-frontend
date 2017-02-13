@@ -8,15 +8,6 @@ import routes from './routes'
 const initialState = {
   tasks: [],
   projects: [],
-  pageState: {
-    tasks: {
-      currentTask: {
-        name: '-',
-        project_id: 0,
-        state_id: 2,
-      },
-    },
-  },
 }
 
 const reducer = (state = initialState, action) => {
@@ -24,25 +15,6 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case 'TASKS_LOADED':
       return { ...state, tasks: action.payload.tasks }
-    case 'TASK_EDIT':
-      const currentTask = { ...state.pageState.tasks.currentTask }
-      currentTask[action.payload.name] = action.payload.value
-      console.log('currentTask', currentTask)
-      const a = {
-        ...state,
-        pageState: {
-          ...state.pageState,
-          tasks: {
-            ...state.pageState.tasks,
-            currentTask: {
-              ...state.pageState.tasks.currentTask,
-              ...action.payload,
-            },
-          },
-        },
-      }
-      console.log('a', a)
-      return a
     case 'TASK_UPDATE':
       if (!action.payload)
         return state

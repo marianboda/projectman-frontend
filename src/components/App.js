@@ -5,7 +5,7 @@ import gql from 'graphql-tag'
 import { AbsoluteFragment as Fragment, Link } from 'redux-little-router'
 
 import './App.css'
-import { tasksLoaded, setTask, editTask } from '../actions'
+import { tasksLoaded, setTask } from '../actions'
 import TaskEditor from './TaskEditor'
 
 const dataQuery = gql`query taskquery {
@@ -17,20 +17,11 @@ const dataQuery = gql`query taskquery {
 const mapStateToProps = (state) => {
   console.log('state', state)
   return {
-    pageState: state.data.pageState,
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    tasksLoadedHandler: (data) => dispatch(tasksLoaded(data)),
-    onTaskNameFieldChange: (e) => {
-      if (e.key === 'Enter') {
-        const name = e.currentTarget.value
-        dispatch(setTask({ name }))
-      }
-      console.log(e.key)
-    },
     onTaskCheck: (task) => {
       const data = {
         id: task.id,
@@ -38,18 +29,9 @@ const mapDispatchToProps = (dispatch) => {
       }
       dispatch(setTask(data))
     },
-    onProjectSelect: (e) => {
-      console.log('projectSelected', e.currentTarget.value)
-    },
-    onStateSelect: (e) => {
-      console.log('stateSelected', e.currentTarget.value)
-    },
-    onSave: (e) => {
-      console.log('saving', e.currentTarget.value)
-    },
-    editorChangeHandler: (e) => {
-      console.log('editorch', e)
-      dispatch(editTask(e))
+    onSave: (task) => {
+      console.log('saving', task)
+      dispatch(setTask(task))
     },
   }
 }
@@ -57,13 +39,8 @@ const mapDispatchToProps = (dispatch) => {
 class App extends Component {
   render() {
     const {
-      // state,
-      onTaskNameFieldChange,
-      onProjectSelect,
       onTaskCheck,
-      onStateSelect,
       onSave,
-      editorChangeHandler,
       data,
       pageState,
     } = this.props
@@ -80,10 +57,9 @@ class App extends Component {
         <hr />
         <Fragment forRoute="/tasks">
           <TaskEditor
-            data={pageState.tasks.currentTask}
+            onSave={onSave}
             taskStates={data.taskStates}
             projects={data.projects}
-            onChange={editorChangeHandler}
           />
           {
             (data && data.tasks && data.tasks.length > 0)
