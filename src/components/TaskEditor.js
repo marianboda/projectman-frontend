@@ -6,18 +6,33 @@ class TaskEditor extends React.Component {
   constructor() {
     super()
     this.onSave = this.onSave.bind(this)
+    this.onChange = this.onChange.bind(this)
+    this.state = {}
+  }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.data) {
+      this.setState(nextProps.data)
+    }
   }
   onSave(e) {
     e.preventDefault()
     console.log('save', getFormData(e.currentTarget))
     if (typeof this.props.onSave === 'function') {
-      this.props.onSave(getFormData(e.currentTarget))
+      const formData = getFormData(e.currentTarget)
+
+      this.props.onSave({ ...formData, ...this.state })
     }
+  }
+
+  onChange(e) {
+    console.log('target', e.currentTarget.name, e.currentTarget.value)
+    const { name, value } = e.currentTarget
+    this.setState({ [name]: value+'1' })
   }
 
   render() {
     const {
-      // data,
+      data,
       taskStates,
       projects,
     } = this.props
@@ -30,8 +45,12 @@ class TaskEditor extends React.Component {
         <table>
           <tbody>
             <tr>
+              <td>ID:</td>
+              <td>{data.id}</td>
+            </tr>
+            <tr>
               <td>Name</td>
-              <td><input name="name" type="text" /></td>
+              <td><input name="name" type="text" onChange={this.onChange} value={this.state.name}/></td>
             </tr>
             <tr>
               <td>Project</td>

@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'redux-little-router'
 
 class TaskList extends React.Component {
   render() {
@@ -16,9 +17,9 @@ class TaskList extends React.Component {
                     checked={i.state_id === 5}
                     onChange={((j) => () => onTaskCheck(j))(i)}
                   />
-                  {i.name}
+                  <Link href={`/tasks/${i.id}`}>{i.name}
                   , state: {i.state_id}
-                  , prio: {i.priority}
+                  , prio: {i.priority}</Link>
                 </li>))}
               </ul>
             </div>)

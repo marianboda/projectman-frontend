@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { graphql, compose } from 'react-apollo'
 import gql from 'graphql-tag'
-import { AbsoluteFragment as Fragment, Link } from 'redux-little-router'
+import { RelativeFragment as Fragment, Link } from 'redux-little-router'
 
 import './App.css'
 import { tasksLoaded, setTask } from '../actions'
@@ -44,6 +44,7 @@ class App extends Component {
       onSave,
       data,
       pageState,
+      router,
     } = this.props
     console.log('props', this.props)
     return (
@@ -61,9 +62,9 @@ class App extends Component {
             onSave={onSave}
             taskStates={data.taskStates}
             projects={data.projects}
+            data={(router.params.id) ? { id: `${router.params.id}` } : { id: 0 }}
           />
-          <TaskList data={data.tasks} onTaskCheck={onTaskCheck}/>
-
+          <TaskList data={data.tasks} onTaskCheck={onTaskCheck} />
         </Fragment>
       </div>
     )
