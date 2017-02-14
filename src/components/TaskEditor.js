@@ -48,6 +48,12 @@ class TaskEditor extends React.Component {
               </td>
             </tr>
             <tr>
+              <td>Priority</td>
+              <td>
+                <td><input name="priority" type="number" /></td>
+              </td>
+            </tr>
+            <tr>
               <td>&nbsp;</td>
               <td>
                 <button>SAVE</button>
