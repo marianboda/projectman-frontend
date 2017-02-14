@@ -7,6 +7,7 @@ import { AbsoluteFragment as Fragment, Link } from 'redux-little-router'
 import './App.css'
 import { tasksLoaded, setTask } from '../actions'
 import TaskEditor from './TaskEditor'
+import TaskList from './TaskList'
 
 const dataQuery = gql`query taskquery {
   tasks { id, name, state_id, project_id, priority }
@@ -61,25 +62,8 @@ class App extends Component {
             taskStates={data.taskStates}
             projects={data.projects}
           />
-          {
-            (data && data.tasks && data.tasks.length > 0)
-              ? (<div>
-                <h3>Tasks:</h3>
-                <ul>
-                  {data.tasks.map(i => (<li>
-                    <input
-                      type="checkbox"
-                      checked={i.state_id === 5}
-                      onChange={((j) => () => onTaskCheck(j))(i)}
-                    />
-                    {i.name}
-                    , state: {i.state_id}
-                    , prio: {i.priority}
-                  </li>))}
-                </ul>
-              </div>)
-              : (<p>not yet loaded ...</p>)
-          }
+          <TaskList data={data.tasks} onTaskCheck={onTaskCheck}/>
+
         </Fragment>
       </div>
     )
