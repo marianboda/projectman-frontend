@@ -16,23 +16,18 @@ class TaskEditor extends React.Component {
   }
   onSave(e) {
     e.preventDefault()
-    console.log('save', getFormData(e.currentTarget))
     if (typeof this.props.onSave === 'function') {
-      const formData = getFormData(e.currentTarget)
-
-      this.props.onSave({ ...formData, ...this.state })
+      this.props.onSave(R.pickBy((_, key) => key !== '__typename', this.state))
     }
   }
 
   onChange(e) {
-    console.log('target', e.currentTarget.name, e.currentTarget.value)
     const { name, value } = e.currentTarget
-    this.setState({ [name]: value+'1' })
+    this.setState({ [name]: value })
   }
 
   render() {
     const {
-      data,
       taskStates,
       projects,
     } = this.props
@@ -46,22 +41,29 @@ class TaskEditor extends React.Component {
           <tbody>
             <tr>
               <td>ID:</td>
-              <td>{data.id}</td>
+              <td>{this.state.id}</td>
             </tr>
             <tr>
               <td>Name</td>
-              <td><input name="name" type="text" onChange={this.onChange} value={this.state.name}/></td>
+              <td>
+                <input
+                  name="name"
+                  type="text"
+                  onChange={this.onChange}
+                  value={this.state.name}
+                />
+              </td>
             </tr>
             <tr>
               <td>Project</td>
-              <td><select name="project_id">
+              <td><select name="project_id" value={this.state.project_id} onChange={this.onChange}>
                 { projectsWithZero.map(i => <option value={i.id}>{i.name}</option>)}
               </select></td>
             </tr>
             <tr>
               <td>State</td>
               <td>
-                <select name="state_id">
+                <select name="state_id" value={this.state.state_id} onChange={this.onChange}>
                   { statesWithZero.map(i => <option value={i.id}>{i.name}</option>)}
                 </select>
               </td>
@@ -69,7 +71,14 @@ class TaskEditor extends React.Component {
             <tr>
               <td>Priority</td>
               <td>
-                <td><input name="priority" type="number" /></td>
+                <td>
+                  <input
+                    name="priority"
+                    type="number"
+                    value={this.state.priority}
+                    onChange={this.onChange}
+                  />
+                </td>
               </td>
             </tr>
             <tr>

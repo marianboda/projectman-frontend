@@ -46,6 +46,9 @@ class App extends Component {
       pageState,
       router,
     } = this.props
+    const currentId = Number(router.params.id || 0)
+    const currentTask =
+      (data.tasks && currentId) ? data.tasks.filter(i => i.id === currentId)[0] : { id: 0 }
     console.log('props', this.props)
     return (
       <div className="App">
@@ -62,7 +65,7 @@ class App extends Component {
             onSave={onSave}
             taskStates={data.taskStates}
             projects={data.projects}
-            data={(router.params.id) ? { id: `${router.params.id}` } : { id: 0 }}
+            data={currentTask}
           />
           <TaskList data={data.tasks} onTaskCheck={onTaskCheck} />
         </Fragment>
