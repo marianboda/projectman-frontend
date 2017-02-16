@@ -67,7 +67,9 @@ class App extends Component {
             projects={data.projects}
             data={currentTask}
           />
-          <TaskList data={data.tasks} onTaskCheck={onTaskCheck} />
+          <TaskList
+            onTaskCheck={onTaskCheck}
+          />
         </Fragment>
       </div>
     )
