@@ -26,7 +26,7 @@ const mapDispatchToProps = (dispatch) => {
     onTaskCheck: (task) => {
       const data = {
         id: task.id,
-        state_id: (task.state_id === 0) ? 5 : 0,
+        state_id: (task.state_id !== 5) ? 5 : 1,
       }
       dispatch(setTask(data))
     },

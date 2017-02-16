@@ -3,7 +3,7 @@ import { Link } from 'redux-little-router'
 import gql from 'graphql-tag'
 import { graphql, compose } from 'react-apollo'
 
-const taskQuery = gql`query taskQuery { tasks { id name state {id name} project {id name} priority } }`
+const taskQuery = gql`query taskQuery { tasks { id name state_id project {id name} priority } }`
 
 class TaskList extends React.Component {
   render() {
