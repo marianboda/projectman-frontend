@@ -26,3 +26,30 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.tr-task td {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.tr-task-state-2 {
+  color: #F60;
+}
+.tr-task-state-3 {
+  color: #F00;
+}
+.tr-task-state-4 {
+  color: #F6F;
+}
+.tr-task-state-5 {
+  color: #096;
+}
+
+.task-id a {
+  text-decoration: none;
+  color: #999;
+}
+
+.task-id {
+  text-align: right;
+}

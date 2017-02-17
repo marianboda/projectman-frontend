@@ -50,35 +50,33 @@ class TaskEditor extends React.Component {
                   name="name"
                   type="text"
                   onChange={this.onChange}
-                  value={this.state.name}
+                  value={this.state.name || ''}
                 />
               </td>
             </tr>
             <tr>
               <td>Project</td>
               <td><select name="project_id" value={this.state.project_id} onChange={this.onChange}>
-                { projectsWithZero.map(i => <option value={i.id}>{i.name}</option>)}
+                { projectsWithZero.map(i => <option key={i.id} value={i.id}>{i.name}</option>)}
               </select></td>
             </tr>
             <tr>
               <td>State</td>
               <td>
                 <select name="state_id" value={this.state.state_id} onChange={this.onChange}>
-                  { statesWithZero.map(i => <option value={i.id}>{i.name}</option>)}
+                  { statesWithZero.map(i => <option key={i.id} value={i.id}>{i.name}</option>)}
                 </select>
               </td>
             </tr>
             <tr>
               <td>Priority</td>
               <td>
-                <td>
-                  <input
-                    name="priority"
-                    type="number"
-                    value={this.state.priority}
-                    onChange={this.onChange}
-                  />
-                </td>
+                <input
+                  name="priority"
+                  type="number"
+                  value={this.state.priority || 0}
+                  onChange={this.onChange}
+                />
               </td>
             </tr>
             <tr>
@@ -102,7 +100,7 @@ TaskEditor.propTypes = {
   // }),
   taskStates: PropTypes.array,
   projects: PropTypes.array,
-  onSave: PropTypes.function,
+  onSave: PropTypes.func,
 }
 
 TaskEditor.defaultProps = {
