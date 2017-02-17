@@ -43,7 +43,7 @@ class App extends Component {
       data,
       router,
     } = this.props
-    const currentId = Number(router.params.id || 0)
+    const currentId = Number((router.params && router.params.id) || 0)
     const currentTask =
       (data.tasks && currentId) ? data.tasks.filter(i => i.id === currentId)[0] : {}
     console.log('props', this.props)
