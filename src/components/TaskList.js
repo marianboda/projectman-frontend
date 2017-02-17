@@ -41,7 +41,7 @@ class TaskList extends React.Component {
                         <td><Link href={`/tasks/${i.id}`}>{i.name}</Link></td>
                         <td>{i.state_id}</td>
                         <td>{i.project && i.project.name}</td>
-                        <td>{i.priority}</td>
+                        <td className="task-priority">{i.priority}</td>
                       </tr>
                     )
                   })}

@@ -1,5 +1,9 @@
 import React, { PropTypes } from 'react'
+import { graphql, compose } from 'react-apollo'
+import gql from 'graphql-tag'
 import R from 'ramda'
+
+const taskByIdQuery = gql`query TaskByIdQuery($id: Int) { task(id: $id) { id name state_id project_id priority } }`
 
 class TaskEditor extends React.Component {
   constructor() {
@@ -9,14 +13,21 @@ class TaskEditor extends React.Component {
     this.state = {}
   }
   componentWillReceiveProps(nextProps) {
-    if (nextProps.data) {
-      this.setState(nextProps.data)
+    if (nextProps.data && nextProps.data.task) {
+      this.setState(nextProps.data.task)
     }
   }
   onSave(e) {
     e.preventDefault()
+    const fields = [
+      'id',
+      'name',
+      'project_id',
+      'state_id',
+      'priority',
+    ]
     if (typeof this.props.onSave === 'function') {
-      this.props.onSave(R.pickBy((_, key) => key !== '__typename', this.state))
+      this.props.onSave(R.pick(fields, this.state))
     }
   }
 
@@ -33,6 +44,8 @@ class TaskEditor extends React.Component {
 
     const projectsWithZero = R.prepend({ id: 0, name: '-' }, projects)
     const statesWithZero = R.prepend({ id: 0, name: '-' }, taskStates)
+
+    console.log('taskEditor props', this.props)
 
     return (
       <form onSubmit={this.onSave}>
@@ -97,20 +110,19 @@ TaskEditor.propTypes = {
   //   state_id: PropTypes.number,
   //   project_id: PropTypes.number,
   // }),
+  taskId: PropTypes.number,
   taskStates: PropTypes.array,
   projects: PropTypes.array,
   onSave: PropTypes.func,
 }
 
 TaskEditor.defaultProps = {
-  data: {
-    name: '',
-    state_id: 2,
-    project_id: 0,
-  },
+  taskId: null,
   taskStates: [],
   projects: [],
   onSave: null,
 }
 
-export default TaskEditor
+export default compose(
+  graphql(taskByIdQuery, { options: ({ taskId }) => ({ variables: { id: taskId } }) })
+)(TaskEditor)

@@ -5,10 +5,10 @@ export const tasksLoaded = (data) => ({
   payload: data,
 })
 
-const taskUpdate = (data) => ({
-  type: 'TASK_UPDATE',
-  payload: data,
-})
+// const taskUpdate = (data) => ({
+//   type: 'TASK_UPDATE',
+//   payload: data,
+// })
 
 export const setTask = (data) => (dispatch) => {
   dispatch({
