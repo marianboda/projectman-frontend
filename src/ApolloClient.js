@@ -8,6 +8,5 @@ const client = new ApolloClient({
     return null
   },
 })
-console.log(client)
 
 export default client

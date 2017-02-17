@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react'
-import getFormData from 'get-form-data'
 import R from 'ramda'
 
 class TaskEditor extends React.Component {

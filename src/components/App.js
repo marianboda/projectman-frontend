@@ -5,18 +5,16 @@ import gql from 'graphql-tag'
 import { RelativeFragment as Fragment, Link } from 'redux-little-router'
 
 import './App.css'
-import { tasksLoaded, setTask } from '../actions'
+import { setTask } from '../actions'
 import TaskEditor from './TaskEditor'
 import TaskList from './TaskList'
 
 const dataQuery = gql`query taskquery {
-  tasks { id, name, state_id, project_id, priority }
   projects { id, name }
   taskStates { id, name }
 }`
 
 const mapStateToProps = (state) => {
-  console.log('state', state)
   return {
   }
 }
@@ -43,12 +41,11 @@ class App extends Component {
       onTaskCheck,
       onSave,
       data,
-      pageState,
       router,
     } = this.props
     const currentId = Number(router.params.id || 0)
     const currentTask =
-      (data.tasks && currentId) ? data.tasks.filter(i => i.id === currentId)[0] : { id: 0 }
+      (data.tasks && currentId) ? data.tasks.filter(i => i.id === currentId)[0] : {}
     console.log('props', this.props)
     return (
       <div className="App">

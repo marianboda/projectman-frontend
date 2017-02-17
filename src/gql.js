@@ -6,9 +6,11 @@ const getTasksQuery = gql`query taskquery {
     id
     name
     state_id
-    project_id
+    project {
+      id
+      name
+    }
     priority
-    __typename
   }
 }`
 

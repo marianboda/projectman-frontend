@@ -9,6 +9,7 @@ const taskQuery = gql`query taskQuery { tasks { id name state_id project {id nam
 class TaskList extends React.Component {
   render() {
     const { onTaskCheck, data: { tasks } } = this.props
+    console.log('tasklist data', this.props.data)
     const sort = R.sortWith([R.descend(R.prop('state_id')), R.descend(R.prop('priority'))])
     return (
       <div>
@@ -20,7 +21,6 @@ class TaskList extends React.Component {
                 <thead>
                   <tr>
                     <th>-</th>
-                    <th>#</th>
                     <th>name</th>
                     <th>state</th>
                     <th>project</th>
@@ -38,10 +38,7 @@ class TaskList extends React.Component {
                             onChange={((j) => () => onTaskCheck(j))(i)}
                           />
                         </td>
-                        <td className="task-id">
-                          <Link href={`/tasks/${i.id}`}>{i.id}</Link>
-                        </td>
-                        <td>{i.name}</td>
+                        <td><Link href={`/tasks/${i.id}`}>{i.name}</Link></td>
                         <td>{i.state_id}</td>
                         <td>{i.project && i.project.name}</td>
                         <td>{i.priority}</td>

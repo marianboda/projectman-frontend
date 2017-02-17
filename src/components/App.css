@@ -45,9 +45,9 @@
   color: #096;
 }
 
-.task-id a {
+.tr-task a {
   text-decoration: none;
-  color: #999;
+  color: inherit;
 }
 
 .task-id {
