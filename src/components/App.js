@@ -6,8 +6,10 @@ import { RelativeFragment as Fragment, Link } from 'redux-little-router'
 
 import './App.css'
 import { setTask, navigate } from '../actions'
+import Header from './Header'
 import TaskEditor from './TaskEditor'
 import TaskList from './TaskList'
+import ProjectList from './ProjectList'
 
 const dataQuery = gql`query taskquery {
   projects { id, name }
@@ -47,25 +49,24 @@ class App extends Component {
     const currentId = Number((router.params && router.params.id) || 0)
     return (
       <div className="App">
-        <div className="App-header">
-          <h2>project-man 2017</h2>
+        <Header />
+        <div className="content">
+          <Fragment forRoute="/tasks">
+            <TaskEditor
+              onSave={onSave}
+              taskStates={data.taskStates}
+              projects={data.projects}
+              taskId={currentId}
+            />
+            <TaskList
+              onTaskCheck={onTaskCheck}
+            />
+          </Fragment>
+          <Fragment forRoute="/projects">
+            <ProjectList
+            />
+          </Fragment>
         </div>
-        <div>
-          <Link href="/tasks">Tasks</Link>&nbsp;
-          <Link href="/projects">Projects</Link>
-        </div>
-        <hr />
-        <Fragment forRoute="/tasks">
-          <TaskEditor
-            onSave={onSave}
-            taskStates={data.taskStates}
-            projects={data.projects}
-            taskId={currentId}
-          />
-          <TaskList
-            onTaskCheck={onTaskCheck}
-          />
-        </Fragment>
       </div>
     )
   }

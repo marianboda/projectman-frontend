@@ -9,13 +9,22 @@
 
 .App-header {
   background-color: #247;
-  height: 50px;
-  padding: 20px;
+  height: 80px;
+  padding-right: 20px;
+  padding-top: 10px;
   color: #DEF;
 }
 
 .App-header h2 {
   font-weight: normal;
+  margin-top: 0;
+  margin-left: 20px;
+}
+
+.App-header a {
+  color: #F96;
+  text-decoration: none;
+  padding-left: 40px;
 }
 
 .App-intro {
@@ -25,6 +34,18 @@
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+table {
+  border-collapse: collapse;
+}
+
+th {
+  border-bottom: 1px solid #999;
+}
+
+.content {
+  padding: 15px;
 }
 
 .tr-task td {
