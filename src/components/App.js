@@ -46,10 +46,11 @@ class App extends Component {
       data,
       router,
     } = this.props
+    console.log('props', this.props)
     const currentId = Number((router.params && router.params.id) || 0)
     return (
       <div className="App">
-        <Header />
+        <Header pathname={router.pathname}/>
         <div className="content">
           <Fragment forRoute="/tasks">
             <TaskEditor

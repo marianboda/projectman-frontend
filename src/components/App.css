@@ -9,7 +9,6 @@
 
 .App-header {
   background-color: #247;
-  height: 80px;
   padding-right: 20px;
   padding-top: 10px;
   color: #DEF;
@@ -17,14 +16,24 @@
 
 .App-header h2 {
   font-weight: normal;
+  font-size: 14px;
   margin-top: 0;
   margin-left: 20px;
 }
 
-.App-header a {
-  color: #F96;
+.top-menu {
+  background: #235;
+  padding: 10px;
+}
+
+.top-menu a {
+  color: #F60;
   text-decoration: none;
   padding-left: 40px;
+}
+
+.top-menu a.current {
+  color: #FA9;
 }
 
 .App-intro {
@@ -49,8 +58,8 @@ th {
 }
 
 .tr-task td {
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 8px;
+  padding-right: 8px;
 }
 
 .tr-task-state-2 {
