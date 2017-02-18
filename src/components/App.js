@@ -5,7 +5,7 @@ import gql from 'graphql-tag'
 import { RelativeFragment as Fragment, Link } from 'redux-little-router'
 
 import './App.css'
-import { setTask } from '../actions'
+import { setTask, navigate } from '../actions'
 import TaskEditor from './TaskEditor'
 import TaskList from './TaskList'
 
@@ -31,6 +31,7 @@ const mapDispatchToProps = (dispatch) => {
     onSave: (task) => {
       console.log('saving', task)
       dispatch(setTask(task))
+      dispatch(navigate('/tasks'))
     },
   }
 }

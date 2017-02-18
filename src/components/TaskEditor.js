@@ -15,7 +15,18 @@ class TaskEditor extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.data && nextProps.data.task) {
       this.setState(nextProps.data.task)
+    } else {
+      this.reset()
     }
+  }
+  reset() {
+    this.setState({
+      id: undefined,
+      name: '',
+      project_id: 0,
+      state_id: 1,
+      priority: 50,
+    })
   }
   onSave(e) {
     e.preventDefault()
@@ -29,6 +40,7 @@ class TaskEditor extends React.Component {
     if (typeof this.props.onSave === 'function') {
       this.props.onSave(R.pick(fields, this.state))
     }
+    this.reset()
   }
 
   onChange(e) {
@@ -94,7 +106,7 @@ class TaskEditor extends React.Component {
             <tr>
               <td>&nbsp;</td>
               <td>
-                <button>SAVE</button>
+                <button disabled={this.state.name === ''}>SAVE</button>
               </td>
             </tr>
           </tbody>
