@@ -1,3 +1,4 @@
+// @flow
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { graphql, compose } from 'react-apollo'
@@ -50,7 +51,7 @@ class App extends Component {
     const currentId = Number((router.params && router.params.id) || 0)
     return (
       <div className="App">
-        <Header pathname={router.pathname}/>
+        <Header pathname={router.pathname} />
         <div className="content">
           <Fragment forRoute="/tasks">
             <TaskEditor
@@ -64,8 +65,7 @@ class App extends Component {
             />
           </Fragment>
           <Fragment forRoute="/projects">
-            <ProjectList
-            />
+            <ProjectList />
           </Fragment>
         </div>
       </div>

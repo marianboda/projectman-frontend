@@ -1,8 +1,8 @@
+// @flow
 import React from 'react'
 import { Link } from 'redux-little-router'
 import gql from 'graphql-tag'
 import { graphql, compose } from 'react-apollo'
-import R from 'ramda'
 
 const projectsQuery = gql`query projectsQuery {
   projects {

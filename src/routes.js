@@ -1,3 +1,4 @@
+// @flow
 const routes = {
   '/tasks': {
     title: 'Tasks',

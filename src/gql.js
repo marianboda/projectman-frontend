@@ -1,3 +1,4 @@
+// @flow
 import gql from 'graphql-tag'
 import client from './ApolloClient'
 
@@ -18,7 +19,7 @@ const setTaskMutation = gql`mutation setTask($task: TaskInput) {
   setTask(task: $task) { id, name, state_id }
 }`
 
-export const setTask = (rec) => {
+export const setTask = (rec: Object) => {
   return client.mutate({
     mutation: setTaskMutation,
     variables: { task: rec },
