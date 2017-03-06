@@ -1,5 +1,5 @@
 // @flow
-import React, { PropTypes } from 'react'
+import React from 'react'
 import { graphql, compose } from 'react-apollo'
 import gql from 'graphql-tag'
 import R from 'ramda'

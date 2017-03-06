@@ -3,14 +3,13 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { graphql, compose } from 'react-apollo'
 import gql from 'graphql-tag'
-import { RelativeFragment as Fragment, Link } from 'redux-little-router'
+import { RelativeFragment as Fragment } from 'redux-little-router'
 
 import './App.css'
 import { setTask, navigate } from '../actions'
 import Header from './Header'
-import TaskEditor from './TaskEditor'
-import TaskList from './TaskList'
 import ProjectList from './ProjectList'
+import TaskPage from './TaskPage'
 
 const dataQuery = gql`query taskquery {
   projects { id, name }
@@ -54,15 +53,7 @@ class App extends Component {
         <Header pathname={router.pathname} />
         <div className="content">
           <Fragment forRoute="/tasks">
-            <TaskEditor
-              onSave={onSave}
-              taskStates={data.taskStates}
-              projects={data.projects}
-              taskId={currentId}
-            />
-            <TaskList
-              onTaskCheck={onTaskCheck}
-            />
+            <TaskPage {...{ onSave, onTaskCheck, data, currentId }}></TaskPage>
           </Fragment>
           <Fragment forRoute="/projects">
             <ProjectList />
