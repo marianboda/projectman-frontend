@@ -1,6 +1,6 @@
 # ProjectMan front-end
 
-This is a react front-end to the ProjectMan backend.
+This is a React-based front-end for the [ProjectMan](https://github.com/marianboda/projectman6) backend.
 
 This project is created for me to learn:
 * create-react-app
