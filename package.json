@@ -20,6 +20,7 @@
     "react": "^15.4.2",
     "react-apollo": "^1.0.1",
     "react-dom": "^15.4.2",
+    "react-flip-move": "^2.9.2",
     "react-redux": "^5.0.2",
     "redux": "^3.6.0",
     "redux-little-router": "^12.1.2",
