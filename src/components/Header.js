@@ -1,4 +1,3 @@
-// @flow
 import React from 'react'
 import { Link } from 'redux-little-router'
 
