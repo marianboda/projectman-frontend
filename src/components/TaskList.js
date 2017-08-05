@@ -18,7 +18,7 @@ class TaskList extends React.Component {
             ? (<div>
               <h3>Tasks:</h3>
               <table>
-                <thead>
+                {/* <thead>
                   <tr>
                     <th>-</th>
                     <th>name</th>
@@ -26,7 +26,7 @@ class TaskList extends React.Component {
                     <th>project</th>
                     <th>priority</th>
                   </tr>
-                </thead>
+                </thead> */}
                 <tbody>
                   <FlipMove duration={350} easing="ease">
                     {sort(tasks).map(i => {
