@@ -14,7 +14,6 @@ type Props = {
 }
 
 class TaskEditor extends React.Component {
-
   state: {
     id: ?number,
     name: string,

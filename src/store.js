@@ -30,17 +30,18 @@ const reducer = (state = initialState, action) => {
 // eslint-disable-next-line no-underscore-dangle
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
-const { routerEnhancer, routerMiddleware } = routerForBrowser({ routes })
+const { reducer: routerReducer, enhancer, middleware } = routerForBrowser({ routes })
 
 const store = createStore(
   combineReducers({
     data: reducer,
     apollo: client.reducer(),
+    router: routerReducer
   }),
   composeEnhancers(
-    routerEnhancer,
+    enhancer,
     applyMiddleware(
-      routerMiddleware,
+      middleware,
       client.middleware(),
       thunk,
     ),

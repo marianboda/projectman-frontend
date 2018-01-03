@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { graphql, compose } from 'react-apollo'
 import gql from 'graphql-tag'
-import { RelativeFragment as Fragment } from 'redux-little-router'
+import { Fragment } from 'redux-little-router'
 
 import './App.css'
 import { setTask, navigate } from '../actions'
@@ -18,6 +18,7 @@ const dataQuery = gql`query taskquery {
 
 const mapStateToProps = (state) => {
   return {
+    router: state.router
   }
 }
 

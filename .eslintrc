@@ -1,4 +1,6 @@
 {
+  "parser": "babel-eslint",
+
   "extends": "react-app",
   "env": {
     "browser": true,
@@ -11,5 +13,7 @@
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "import/prefer-default-export": 0,
     "no-underscore-dangle": 0,
+    "jsx-a11y/href-no-hash": "off",
+    "jsx-a11y/anchor-is-valid": ["warn", { "aspects": ["invalidHref"] }],
   }
 }
