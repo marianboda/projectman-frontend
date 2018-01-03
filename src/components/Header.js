@@ -1,4 +1,3 @@
-// @flow
 import React from 'react'
 import { Link } from 'redux-little-router'
 
@@ -28,7 +27,7 @@ class Header extends React.Component {
               const className = isCurrent ? 'current' : ''
               console.log('className', className)
               return (
-                <Link href={i.href} className={className}>{i.title}</Link>
+                <Link key={i.title} href={i.href} className={className}>{i.title}</Link>
               )
             })
           }
