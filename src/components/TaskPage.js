@@ -12,6 +12,8 @@ export default class TaskPage extends React.Component {
     } = this.props
     return (
       <div>
+        <div>
+        </div>
         <TaskEditor
           onSave={onSave}
           taskStates={data.taskStates}

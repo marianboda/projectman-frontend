@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'redux-little-router'
+import { Link } from 'react-router-dom'
 
 const menuData = [
   {
@@ -14,7 +14,7 @@ const menuData = [
 
 class Header extends React.Component {
   render() {
-    const { pathname } = this.props
+    const { pathname = '' } = this.props
     console.log('pathname', pathname)
     console.log('context', this.context)
     return (
@@ -27,7 +27,7 @@ class Header extends React.Component {
               const className = isCurrent ? 'current' : ''
               console.log('className', className)
               return (
-                <Link key={i.title} href={i.href} className={className}>{i.title}</Link>
+                <Link key={i.title} to={i.href} className={className}>{i.title}</Link>
               )
             })
           }

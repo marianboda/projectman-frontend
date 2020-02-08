@@ -7,10 +7,13 @@ import client from './ApolloClient'
 import App from './components/App'
 import store from './store'
 import './index.css'
+import { BrowserRouter as Router } from 'react-router-dom'
 
 ReactDOM.render(
   <ApolloProvider store={store} client={client}>
-    <App />
+    <Router>
+      <App />
+    </Router>
   </ApolloProvider>,
   document.getElementById('root'),
 )

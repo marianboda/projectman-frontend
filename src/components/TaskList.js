@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'redux-little-router'
+import { Link } from 'react-router-dom'
 import gql from 'graphql-tag'
 import { graphql, compose } from 'react-apollo'
 import R from 'ramda'
@@ -30,7 +30,7 @@ class TaskList extends React.Component {
                               onChange={((j) => () => onTaskCheck(j))(i)}
                             />
                           </td>
-                          <td><Link href={`/tasks/${i.id}`}>{i.name}</Link></td>
+                          <td><Link to={`/tasks/${i.id}`}>{i.name}</Link></td>
                           <td>{i.state_id}</td>
                           <td>{i.project && i.project.name}</td>
                           <td className="task-priority">{i.priority}</td>

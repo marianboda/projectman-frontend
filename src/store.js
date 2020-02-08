@@ -1,9 +1,7 @@
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux'
 import thunk from 'redux-thunk'
-import { routerForBrowser } from 'redux-little-router'
 
 import client from './ApolloClient'
-import routes from './routes'
 
 const initialState = {
   tasks: [],
@@ -30,18 +28,13 @@ const reducer = (state = initialState, action) => {
 // eslint-disable-next-line no-underscore-dangle
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
-const { reducer: routerReducer, enhancer, middleware } = routerForBrowser({ routes })
-
 const store = createStore(
   combineReducers({
     data: reducer,
     apollo: client.reducer(),
-    router: routerReducer
   }),
   composeEnhancers(
-    enhancer,
     applyMiddleware(
-      middleware,
       client.middleware(),
       thunk,
     ),

@@ -1,25 +1,9 @@
-import { PUSH } from 'redux-little-router'
 import * as gql from './gql'
 
 export const tasksLoaded = (data) => ({
   type: 'TASKS_LOADED',
   payload: data,
 })
-
-export const navigate = (data) => {
-  console.log('data: ', data)
-  if (typeof data === 'string') {
-    return {
-      type: PUSH,
-      payload: {
-        pathname: data,
-      },
-    }
-  }
-  return {
-    type: 'VOID',
-  }
-}
 
 export const setTask = (data) => (dispatch) => {
   dispatch({

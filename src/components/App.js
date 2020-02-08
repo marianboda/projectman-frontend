@@ -2,13 +2,13 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { graphql, compose } from 'react-apollo'
 import gql from 'graphql-tag'
-import { Fragment } from 'redux-little-router'
 
 import './App.css'
-import { setTask, navigate } from '../actions'
+import { setTask } from '../actions'
 import Header from './Header'
 import ProjectList from './ProjectList'
 import TaskPage from './TaskPage'
+import { Route } from 'react-router'
 
 const dataQuery = gql`query taskquery {
   projects { id, name }
@@ -33,7 +33,6 @@ const mapDispatchToProps = (dispatch) => {
     onSave: (task) => {
       console.log('saving', task)
       dispatch(setTask(task))
-      dispatch(navigate('/tasks'))
     },
   }
 }
@@ -44,20 +43,20 @@ class App extends Component {
       onTaskCheck,
       onSave,
       data,
-      router,
     } = this.props
+
     console.log('props', this.props)
-    const currentId = Number((router.params && router.params.id) || 0)
+    const currentId = Number(0)
     return (
       <div className="App">
-        <Header pathname={router.pathname} />
+        <Header pathname={''} />
         <div className="content">
-          <Fragment forRoute="/tasks">
+          <Route path="/tasks">
             <TaskPage {...{ onSave, onTaskCheck, data, currentId }}></TaskPage>
-          </Fragment>
-          <Fragment forRoute="/projects">
+          </Route>
+          <Route path="/projects">
             <ProjectList />
-          </Fragment>
+          </Route>
         </div>
       </div>
     )
